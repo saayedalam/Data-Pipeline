@@ -48,7 +48,7 @@ datashape==0.5.4
 decorator==4.1.2
 defusedxml==0.6.0
 distlib==0.2.5
-distributed==2.4.0
+distributed==2021.10.0
 docutils==0.14
 entrypoints==0.2.3
 et-xmlfile==1.0.1
