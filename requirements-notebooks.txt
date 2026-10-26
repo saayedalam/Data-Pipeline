@@ -1,0 +1,4 @@
+-r requirements.txt
+# Optional local notebook interface; security fixes for the inbox advisories.
+jupyterlab>=4.6.2,<5
+tornado>=6.5.8,<7
