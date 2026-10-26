@@ -1,3 +1,55 @@
+# Titanic Data Pipeline
+
+College coursework from DATA 622 (2019), refreshed to use a small supported
+Python environment instead of a full 2017–2019 Anaconda installation export.
+
+## Run locally
+
+Use Python 3.11 or newer in a **fresh virtual environment**:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-notebooks.txt
+jupyter lab
+```
+
+On Windows, activate with `.venv\Scripts\activate`.
+Run `train_model.ipynb` and then `score_model.ipynb`, from the repository root.
+The committed `train.csv` and `test.csv` allow this without a network request
+or Kaggle credentials. Training regenerates `model.pkl` and the held-out CSVs;
+scoring writes `score.csv`, `report.txt`, and `gender_submission.csv`.
+Previously committed models and reports are historical artifacts: regenerate
+them with the new environment before scoring. Never load an untrusted pickle.
+
+`requirements.txt` contains only Pandas and scikit-learn. NLTK, Pillow,
+cryptography, Flask, and the other unused environment packages were removed
+because this pipeline does not import them. The optional notebook interface is
+separate and includes patched JupyterLab and Tornado minimum versions.
+Version ranges allow patch updates; they are not a fully locked environment.
+
+The optional `pull_data.ipynb` downloads the Titanic competition data. It
+requires the current official Kaggle CLI installed separately, authentication
+configured locally, and acceptance of the competition rules on Kaggle. It is
+not required to train or score the committed dataset. Keep credentials outside
+the repository. Do not reuse the original Anaconda environment: changing a
+requirements file does not uninstall its old packages.
+
+## Validation
+
+```sh
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+```
+
+The tests train a new model from the committed Titanic data in a temporary
+directory, reload it, score the held-out and competition rows, and exercise a
+scoring dataset with missing categories and numeric values. They do not load
+the historical pickle or contact Kaggle.
+
+## Original assignment
+
 DATA 622 # hw2
 
 	Assigned on September 15, 2018
@@ -62,3 +114,4 @@ Modify this ReadMe file to answer the following questions directly in place.
 	4) Docker issues - lost internet within docker due to some ip binding to vm or local routing issues( I guess this falls under lost internet, but I am talking more if docker is the cause rather then ISP)
 	
 	### Since local system was used. This problem is not applicable. 
+
